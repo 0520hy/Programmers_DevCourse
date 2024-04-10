@@ -20,5 +20,3 @@ app.use('/likes', likeRouter)
 app.use('/carts', cartRouter)
 app.use('/orders', orderRouter)
 
-
-// 2024-04-09 연하영
