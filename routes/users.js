@@ -1,11 +1,26 @@
+//express module
 const express = require('express');
 const router = express.Router();
+//db module
+const conn = require('../mariadb');
+//http-status-codes module
+const {StatusCodes} =require('http-status-codes');
 
 router.use(express.json());
 
 // 회원가입
 router.post('/join', (req,res)=>{
-  res.json('회원가입')
+  const {email, password} = req.body;
+  let sql = 'INSERT INTO users (email, password) VALUES (?, ?)';
+  let values = [email, password];
+
+  conn.query(sql, values, (err, results)=>{
+    if(err){
+      console.log(err);
+      return res.status(StatusCodes.BAD_REQUEST).end(); 
+    }
+  })
+  res.status(StatusCodes.CREATED).json(results);
 })
 
 // 로그인
