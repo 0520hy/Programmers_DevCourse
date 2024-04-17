@@ -67,3 +67,6 @@ ON cartItems.book_id = books.id;
 
 -- 장바구니 삭제
 DELETE FROM cartItems WHERE id = ?;
+
+-- 선택한 장바구니 상품 목록 조회
+SELECT * FROM cartItems WHERE user_id = 1 AND id IN (1, 3);
