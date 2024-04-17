@@ -57,4 +57,5 @@ DELETE FROM likes WHERE user_id = 1 AND liked_book_id =2;
 -- 좋아요 개수가 포함된 books 테이블 조회
 SELECT *,(SELECT count(*) FROM likes WHERE liked_book_id = books.id) AS likes FROM books;
 
---
+-- 장바구니 담기
+INSERT INTO cartItems (book_id, quantity, user_id) VALUES (1, 1, 1);
