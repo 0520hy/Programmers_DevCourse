@@ -36,7 +36,7 @@ SELECT * FROM BookStore.books left
 JOIN category ON books.category_id = category.id;
 
 
--- books, category join
+-- books, category 조인
 SELECT * FROM BookStore.books 
 LEFT JOIN category ON books.category_id = category.id WHERE books.id = 1;
 
@@ -59,3 +59,8 @@ SELECT *,(SELECT count(*) FROM likes WHERE liked_book_id = books.id) AS likes FR
 
 -- 장바구니 담기
 INSERT INTO cartItems (book_id, quantity, user_id) VALUES (1, 1, 1);
+
+-- 장바구니 조회
+SELECT cartItems.id, book_id, title, summary,quantity,price 
+FROM cartItems LEFT JOIN books 
+ON cartItems.book_id = books.id;
