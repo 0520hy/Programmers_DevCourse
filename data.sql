@@ -32,8 +32,7 @@ INSERT INTO books (title, img, category_id, form, isbn, summary, detail, author,
 VALUES ("혹부리 영감", 22, 2, "ebook", 10, "노래 주머니..", "혹 두개 되버림..", "김영감", 100, "목차입니다.", 20000, "2023-06-05");
 
 
-SELECT * FROM BookStore.books left
-JOIN category ON books.category_id = category.id;
+SELECT * FROM BookStore.books LEFT JOIN category ON books.category_id = category.id;
 
 
 -- books, category 조인
@@ -86,3 +85,6 @@ VALUES ( 1,3,2);
 
 SELECT max(id) FROM orderedBook;
 SELECT last_insert_id();
+
+-- 결제된 도서 장바구니에서 삭제
+DELETE FROM cartItems WHERE id IN (1,2,3);
