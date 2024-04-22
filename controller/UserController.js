@@ -55,11 +55,12 @@ const login = (req, res) => {
       //jwt token
       const token = jwt.sign(
         {
+          id : loginUser.id,
           email: loginUser.email,
         },
         process.env.PRIVATE_KEY,
         {
-          expiresIn: "5m",
+          expiresIn: "30m",
           issuer: "hy",
         }
       );

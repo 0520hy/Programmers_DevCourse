@@ -2,13 +2,20 @@
 const conn = require("../mariadb");
 //http-status-codes module
 const { StatusCodes } = require("http-status-codes");
+// jwt
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config()
 
+// 좋아요 추가
 const addLike = (req,res)=>{
+ 
+  let book_id = req.params.id;
+  
+  let authorization = ensureAuthorization(req);
+
   let sql = "INSERT INTO likes (user_id, liked_book_id) VALUES (?,?)";
-  let {id} = req.params; //book_id
-  let {user_id} = req.body;
-
-  let values = [user_id, id];
+  let values = [authorization.id, book_id];
 
   conn.query(sql, values, (err, results) => {
     if (err) {
@@ -20,12 +27,16 @@ const addLike = (req,res)=>{
 
 };
 
+// 좋아요 취소
 const removeLike = (req,res)=>{
-  let sql = "DELETE FROM likes WHERE user_id = ? AND liked_book_id = ?";
-  let {id} = req.params; //book_id
-  let {user_id} = req.body;
 
-  let values = [user_id, id];
+
+  let sql = "DELETE FROM likes WHERE user_id = ? AND liked_book_id = ?";
+  let book_id = req.params.id; 
+
+  let authorization = ensureAuthorization(req);
+
+  let values = [authorization.id, book_id];
 
   conn.query(sql, values, (err, results) => {
     if (err) {
@@ -36,6 +47,15 @@ const removeLike = (req,res)=>{
   });
 
 };
+
+function ensureAuthorization(req){
+  let  recievedJwt = req.headers["authorization"];
+  let decodedJwt = jwt.verify(recievedJwt, process.env.PRIVATE_KEY);
+  
+  console.log(decodedJwt);
+
+  return decodedJwt;
+}
 
 module.exports = {
   addLike,
