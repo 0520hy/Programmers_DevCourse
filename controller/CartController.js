@@ -3,6 +3,7 @@ const conn = require("../mariadb");
 //http-status-codes module
 const { StatusCodes, UNAUTHORIZED } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
+const ensureAuthorization = require("../auth"); // 인증 모듈
 const dotenv = require("dotenv");
 dotenv.config()
 
@@ -80,20 +81,7 @@ const RemoveCartItem = (req, res) => {
   });
 };
 
-function ensureAuthorization(req, res){
-  try{
-    let recievedJwt = req.headers["authorization"];
-    let decodedJwt = jwt.verify(recievedJwt, process.env.PRIVATE_KEY);
-  
-     console.log(decodedJwt);
 
-     return decodedJwt;
-  }catch(err){
-    console.log(err);
-
-    return err;
-  }
-}
 
 module.exports = {
   addCartItem,
