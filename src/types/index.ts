@@ -4,3 +4,10 @@ export interface ITask{
     taskDescription: string;
     taskOwner: string;
 }
+
+export interface ILogItem{
+    logId: string;
+    logAuthor: string;
+    logMessage: string;
+    logTimeStamp: string;
+}
