@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const ActionButton = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div>ActionButton</div>;
+};
 
-export default ActionButton
+export default ActionButton;
