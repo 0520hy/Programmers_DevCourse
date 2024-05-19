@@ -14,7 +14,7 @@ const ActionButton: FC<TActionButtonProps> = ({ boardId, listId, list }) => {
   const ButtonText = list ? '새로운 리스트 등록' : '새로운 일 등록';
   return isFormOpen ? (
     <DropDownForm
-      setIsFormOpen={setIsFormOpen}
+      setisFormOpen={setIsFormOpen}
       list={list ? true : false}
       boardId={boardId}
       listId={listId}
