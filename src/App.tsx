@@ -3,10 +3,11 @@ import { appContainer, board, buttons } from './App.css';
 import BoardList from './components/BoardList/BoardList';
 import ListsContainer from './components/ListsContainer/ListsContainer';
 import { useTypedSelector } from './hooks/redux';
+import EditModal from './components/EditModal/EditModal';
 
 function App() {
   const [activeBoardId, setActiveBoardId] = useState('board-0');
-
+  const ModalActive = useTypedSelector((state) => state.boards.modalActive);
   const boards = useTypedSelector((state) => state.boards.boardArray);
 
   const getActiveBoard = boards.filter(
@@ -18,6 +19,7 @@ function App() {
   return (
     <>
       <div className={appContainer}>
+        {ModalActive ? <EditModal /> : null}
         <BoardList
           activeBoardId={activeBoardId}
           setActiveBoardId={setActiveBoardId}
