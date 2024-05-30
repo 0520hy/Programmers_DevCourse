@@ -1,9 +1,14 @@
 export type ThemeName = 'light' | 'dark';
-type ColorKey = 'primary' | 'background' | 'secondary' | 'third';
+export type ColorKey = 'primary' | 'background' | 'secondary' | 'third';
+
+export type HeadingSize = "large" | "medium" | "small";
 
 interface Theme {
   name: ThemeName;
   color: Record<ColorKey, string>;
+  heading: {
+    [key in HeadingSize]:{fontSize: string};
+  }
 }
 
 export const light: Theme = {
@@ -14,9 +19,21 @@ export const light: Theme = {
     secondary: 'blue',
     third: 'green',
   },
+  heading: {
+    large: {
+      fontSize: "2rem",
+    },
+    medium: {
+      fontSize: "1.5rem",
+    },
+    small: {
+      fontSize: "1rem",
+    }
+  }
 };
 
 export const dark: Theme = {
+  ...light,
   name: 'dark',
   color: {
     primary: 'coral',
