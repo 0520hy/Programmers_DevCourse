@@ -25,7 +25,7 @@ interface Theme {
     }
   },
   borderRadius: {
-    defalut: string;
+    default: string;
   };
   layout: {
     width: {
@@ -80,13 +80,13 @@ export const light: Theme = {
     }
   },
   borderRadius: {
-    defalut: "4px"
+    default: "4px",
   },
   layout: {
     width: {
       large: "1020px",
       medium: "760px",
-      small: "320px"
+      small: "320px",
     }
   }
   

@@ -7,6 +7,7 @@ import { useCategory } from '../../hooks/useCategory';
 
 function Header() {
  const {category} = useCategory();
+ 
   return (
     <HeaderStyle>
       <h1 className="logo">
