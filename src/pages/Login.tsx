@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Title from '../components/common/Title'
 import InputText from '../components/common/InputText';
 import Button from '../components/common/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { resetPassword, resetRequest } from '../api/auth.api';
+import { login, signup } from '../api/auth.api';
 import { useAlert } from '../hooks/useAlert';
 import { SignupStyle } from './Signup';
+import { useAuthStore } from '../store/authStore';
 
 
 export interface SignupProps {
@@ -14,10 +15,11 @@ export interface SignupProps {
     password: string;
 }
 
-function ResetPassword() {
+function Login() {
     const navigate = useNavigate();
-    const showAlert = useAlert()
-    const [resetRequested, setResetRequested] = useState(false); // reset 요청 여부
+    const showAlert = useAlert();
+
+    const {isloggedIn, storeLogin, storeLogout} = useAuthStore();
 
     const {
         register,
@@ -26,20 +28,17 @@ function ResetPassword() {
     } = useForm<SignupProps>();
 
     const onSubmit = (data: SignupProps) => {
-        if (resetRequested) { // 초기화 api
-            resetPassword(data).then(() => {
-                showAlert("비밀번호가 초기화되었습니다.");
-                navigate("/login");
-            })
-        }else { // 초기화 요청 api
-            resetRequest(data).then(() => {
-                setResetRequested(true)
-            })
-        }}
-
+        login(data).then((res) => {
+            // 상태 변화
+            storeLogin(res.token)
+            showAlert("로그인 완료되었습니다.");
+            navigate("/")
+        })
+    }
+    console.log(isloggedIn)
   return (
     <>
-    <Title size='large'>비밀번호 초기화</Title>
+    <Title size='large'>로그인</Title>
     <SignupStyle>
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
@@ -49,7 +48,6 @@ function ResetPassword() {
             {errors.email && 
             <p className='error-text'>이메일을 입력해주세요</p>}
         </fieldset>
-        {resetRequested &&  // reset 요청에 따라 분기
         <fieldset>
             <InputText placeholder='비밀번호'
             inputType="password"
@@ -57,11 +55,10 @@ function ResetPassword() {
             {errors.password && 
             <p className='error-text'>비밀번호를 입력해주세요</p>}
         </fieldset>
-        }
         <fieldset>
             <Button type="submit"
             size='medium' scheme='primary'>
-                {resetRequested ? " 비밀번호 초기화" : "초기화 요청"}
+                로그인
             </Button>
         </fieldset>
         <div className="info">
@@ -70,7 +67,8 @@ function ResetPassword() {
       </form>
     </SignupStyle>
     </>
-    ) 
+  )
 }
 
-export default ResetPassword;
+
+export default Login;
