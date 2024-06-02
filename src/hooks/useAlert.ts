@@ -4,5 +4,5 @@ export const useAlert = () => {
     const showAlert = useCallback((message: string) => {
     window.alert(message)
 }, [])
-    return showAlert;
+   return showAlert;
 }

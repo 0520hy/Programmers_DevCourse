@@ -15,7 +15,7 @@ function Button({children, size, scheme, disabled, isLoading}:Props) {
   return (
     <div>
       <ButtonStyle size={size} scheme={scheme} disabled={disabled} isLoading={isLoading}>
-        {children}
+      {children}
         </ButtonStyle>
     </div>
   )
