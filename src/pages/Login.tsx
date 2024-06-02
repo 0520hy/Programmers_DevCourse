@@ -33,9 +33,12 @@ function Login() {
             storeLogin(res.token)
             showAlert("로그인 완료되었습니다.");
             navigate("/")
+        },
+        (error) => {
+            showAlert("로그인이 실패했습니다.");
+
         })
     }
-    console.log(isloggedIn)
   return (
     <>
     <Title size='large'>로그인</Title>
