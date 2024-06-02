@@ -4,12 +4,12 @@ import { HeadingSize, ColorKey } from "../../style/theme";
 interface Props {
     children: React.ReactNode;
     size: HeadingSize
-    color? :ColorKey;
+    color?: ColorKey;
 }
 
-function Title({children, size}: Props) {
+function Title({children, size, color}: Props) {
   return (
-   <TitleStyle size={size}>
+   <TitleStyle size={size} color={color}>
     {children}
    </TitleStyle>
   )
