@@ -9,7 +9,7 @@ function ThemeSwitcher(){
     // }
     
     return(
-        <button onClick={toggleTheme}>{themeName}</button>
+        <button onClick={toggleTheme}>{themeName}</button>   
     )
 }
 export default ThemeSwitcher;
