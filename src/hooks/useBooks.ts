@@ -10,14 +10,16 @@ export const useBooks = () => {
     const location = useLocation();
 
     const [books, setBooks] = useState<Book[]>([]);
+    
     const [pagination, setPagination] = useState<Pagination>({
         totalCount: 0,
         currentPage: 1,
     });
     const [isEmpty, setIsEmpty] = useState(true); 
+
     useEffect(() => {
         const params = new URLSearchParams(location.search);
-            // books의 기본값도 []이기 때문에 true 셋팅
+
         fetchBooks({
             category_id: params.get(QUERYSTRING.CATEGORY_ID) ? Number(params.get(QUERYSTRING.CATEGORY_ID)) : undefined,
             news: params.get(QUERYSTRING.NEWS) ? true : undefined,
