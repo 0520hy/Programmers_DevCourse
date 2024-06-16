@@ -1,12 +1,12 @@
 export interface Orders {
     id: number;
-    createdat: string;
+    created_at: string;
     address: string;
     receiver: string;
     contact: string;
-    bookTitle: string;
-    totalQuantity: number;
-    totalPrice: number;
+    book_title: string;
+    total_quantity: number;
+    total_price: number;
 }
 
 export interface OrderSheet {
@@ -20,4 +20,16 @@ export interface Delivery {
     address: string;
     receiver: string;
     contact: string;
+}
+
+export interface OrderDatailItem {
+    book_id: number;
+    titles: string;
+    author: string;
+    price: number;
+    quantity: number;
+}
+
+export interface OrderListItem extends Orders {
+    detail?: OrderDatailItem[];
 }
