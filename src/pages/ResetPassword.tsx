@@ -1,11 +1,8 @@
-import { useState } from 'react'
 import Title from '../components/common/Title'
 import InputText from '../components/common/InputText';
 import Button from '../components/common/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { resetPassword, resetRequest } from '../api/auth.api';
-import { useAlert } from '../hooks/useAlert';
 import { SignupStyle } from './Signup';
 import { useAuth } from '@/hooks/useLogin';
 
