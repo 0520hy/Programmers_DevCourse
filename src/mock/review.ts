@@ -15,4 +15,15 @@ export const reviewsById = http.get("http://localhost:9999/reviews/:bookId",() =
     return HttpResponse.json( mockReviewData, {
         status: 200,
     })
+});
+
+export const addReview = http.post("http://localhost:9999/reviews/:bookId", () => {
+    return HttpResponse.json(
+        {
+            message: "리뷰가 등록되었습니다."
+        },
+        {
+            status: 200,
+        }
+    )
 })
