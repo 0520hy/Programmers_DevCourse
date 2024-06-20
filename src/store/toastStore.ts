@@ -2,14 +2,14 @@ import create from "zustand";
 
 export type ToastType ="info" | "error";
 
-interface Toast {
+export interface ToastItem {
     id: number;
     message: string;
     type: ToastType;
 }
 
 interface ToastStoreState {
-    toasts: Toast[];
+    toasts: ToastItem[];
     addToast: (message: string, type?: ToastType) => void;
     removeToast: (id: number) => void;
 }
@@ -23,7 +23,7 @@ const useToastStore = create<ToastStoreState>((set) => ({
     },
     removeToast: (id) => {
         set((state) => ({
-            toasts: state.toasts.filter((toast) => toast.id === id),
+            toasts: state.toasts.filter((toast) => toast.id !== id),
         }))
     }
 }))
