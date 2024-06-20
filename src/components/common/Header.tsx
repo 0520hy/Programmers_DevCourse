@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import logo from "../../assets/images/logo.png"
-import { FaSignInAlt, FaRegUser} from "react-icons/fa"
+import { FaSignInAlt, FaRegUser, FaUserCircle} from "react-icons/fa"
 import { Link } from 'react-router-dom';
 import { useCategory } from '../../hooks/useCategory';
 import { useAuthStore } from '../../store/authStore';
+import DropDown from './DropDown';
+import ThemeSwitcher from '../header/ThemeSwitcher';
 
 
 function Header() {
@@ -31,6 +33,8 @@ function Header() {
         </ul>
       </nav>
       <nav className="auth">
+      <DropDown toggleButton={<FaUserCircle/>}>
+        <>
         {isloggedIn && (
           <ul>
             <li>
@@ -57,6 +61,9 @@ function Header() {
               </a>
           </li>
         </ul>}
+        <ThemeSwitcher/>
+        </>
+      </DropDown>
       </nav>
     </HeaderStyle>
   );
@@ -100,7 +107,9 @@ const HeaderStyle = styled.header`
   .auth {
     ul {
       display: flex;
+      flex-direction: column;
       gap: 16px;
+      width: 100px;
       li {
         a, button {
           font-size: 1rem;
@@ -108,6 +117,8 @@ const HeaderStyle = styled.header`
           text-decoration: none;
           display: flex;
           align-items: center;
+          justify-content: center;
+          width: 100%;
           line-height: 1;
           background: none;
           border: 0;
