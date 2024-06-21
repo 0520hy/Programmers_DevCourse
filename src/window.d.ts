@@ -1,5 +1,5 @@
 interface Window {
-    daum: {
-        Postcode: any;
-    }
+  daum: {
+    Postcode: any;
+  };
 }

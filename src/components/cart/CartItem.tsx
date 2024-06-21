@@ -1,20 +1,20 @@
-import React, { useMemo } from 'react'
-import { Cart } from '../../models/cart.model'
-import styled from 'styled-components'
-import Title from '../common/Title'
-import { formatNumber } from '../../utils/format'
-import Button from '../common/Button'
-import ChaeckIconButton from './ChaeckIconButton'
-import { useAlert } from '../../hooks/useAlert'
+import { useMemo } from 'react';
+import styled from 'styled-components';
+import { useAlert } from '../../hooks/useAlert';
+import { Cart } from '../../models/cart.model';
+import { formatNumber } from '../../utils/format';
+import Button from '../common/Button';
+import Title from '../common/Title';
+import ChaeckIconButton from './ChaeckIconButton';
 
 interface Props {
-  cart : Cart
+  cart: Cart;
   checkedItems: number[];
-  onCheck: (id : number) => void;
-  onDelete: (id : number) => void;
+  onCheck: (id: number) => void;
+  onDelete: (id: number) => void;
 }
-function CartItem({cart, checkedItems, onCheck, onDelete}:Props) {
-  const {showConfirm} = useAlert();
+function CartItem({ cart, checkedItems, onCheck, onDelete }: Props) {
+  const { showConfirm } = useAlert();
   // checkitems 목록에 내가 있는지 판단 = checked
   const isChecked = useMemo(() => {
     return checkedItems.includes(cart.id);
@@ -22,37 +22,38 @@ function CartItem({cart, checkedItems, onCheck, onDelete}:Props) {
 
   const handleCheck = () => {
     onCheck(cart.id);
-  }
+  };
 
   const handelDelete = () => {
     onDelete(cart.id);
-    showConfirm("삭제하시겠습니까?",()=>{
+    showConfirm('삭제하시겠습니까?', () => {
       onDelete(cart.id);
-    })
-  }
+    });
+  };
   return (
     <CartItemStyle>
-      <div className="info">
-        <div className="check">
-        <ChaeckIconButton isChecked={isChecked} onCheck={handleCheck}/>
+      <div className='info'>
+        <div className='check'>
+          <ChaeckIconButton isChecked={isChecked} onCheck={handleCheck} />
         </div>
         <div>
-          <Title size='medium' color='text'>{cart.title}</Title>
-          <p className="summary">{cart.summary}</p>
-          <p className="price">{formatNumber(cart.price)}원</p>
-          <p className="quantiti">{cart.quantity}권</p>
+          <Title size='medium' color='text'>
+            {cart.title}
+          </Title>
+          <p className='summary'>{cart.summary}</p>
+          <p className='price'>{formatNumber(cart.price)}원</p>
+          <p className='quantiti'>{cart.quantity}권</p>
         </div>
       </div>
-        <Button
-        size='medium' scheme='normal'
-        onClick={handelDelete}
-        >장바구니 삭제</Button>
+      <Button size='medium' scheme='normal' onClick={handelDelete}>
+        장바구니 삭제
+      </Button>
     </CartItemStyle>
-  )
+  );
 }
 
 const CartItemStyle = styled.div`
-  display:flex;
+  display: flex;
   justify-content: space-between;
   align-items: start;
   border: 1px solid ${({ theme }) => theme.color.border};
@@ -64,16 +65,16 @@ const CartItemStyle = styled.div`
     align-items: start;
     flex: 1;
 
-      .check {
-        width: 40px;
-        flex-shrink: 0;
-      }
-      
-  p {
-    padding: 0 0 8px 0;
-    margin: 0;
+    .check {
+      width: 40px;
+      flex-shrink: 0;
+    }
+
+    p {
+      padding: 0 0 8px 0;
+      margin: 0;
+    }
   }
-  }
-`
+`;
 
 export default CartItem;

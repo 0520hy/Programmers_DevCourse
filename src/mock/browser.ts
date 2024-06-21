@@ -1,5 +1,5 @@
-import { setupWorker } from "msw/browser"
-import { addReview, reviewsById } from "./review";
+import { setupWorker } from 'msw/browser';
+import { addReview, reviewsById } from './review';
 
 const handlers = [reviewsById, addReview];
 

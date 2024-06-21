@@ -1,53 +1,55 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { useBook } from '../hooks/useBook';
-import { getImgSrc } from '../utils/image';
-import Title from '../components/common/Title';
-import { BookDetail as IBookDetail} from '../models/book.model';
-import { formatDate, formatNumber } from '../utils/format';
-import { Link } from 'react-router-dom';
-import EllipsisBox from '../components/common/EllipsisBox';
-import LikeButton from '../components/book/LikeButton';
-import AddToCart from '../components/book/AddToCart';
 import BookReview from '@/components/book/BookReview';
-import { Tabs, Tab } from '@/components/common/Tabs';
 import Modal from '@/components/common/Modal';
+import { Tab, Tabs } from '@/components/common/Tabs';
+import { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import AddToCart from '../components/book/AddToCart';
+import LikeButton from '../components/book/LikeButton';
+import EllipsisBox from '../components/common/EllipsisBox';
+import Title from '../components/common/Title';
+import { useBook } from '../hooks/useBook';
+import { BookDetail as IBookDetail } from '../models/book.model';
+import { formatDate, formatNumber } from '../utils/format';
+import { getImgSrc } from '../utils/image';
 
 const bookInfoList = [
   {
-    label: "카테고리",
-    key: "category_id",
-    filter: (book : IBookDetail) => 
-      <Link to ={`/books?category_id=${book.category_id}`}>{book.category_name}</Link>
+    label: '카테고리',
+    key: 'category_id',
+    filter: (book: IBookDetail) => (
+      <Link to={`/books?category_id=${book.category_id}`}>
+        {book.category_name}
+      </Link>
+    ),
   },
   {
-    label: "포맷",
-    key: "form"
+    label: '포맷',
+    key: 'form',
   },
   {
-    label: "페이지",
-    key: "pages"
+    label: '페이지',
+    key: 'pages',
   },
   {
-    label: "ISBN",
-    key: "isbn"
+    label: 'ISBN',
+    key: 'isbn',
   },
   {
-    label: "출간일",
-    key: "pub_date",
-    filter: (book : IBookDetail) => {
-      return formatDate(book.pub_date)
-    }
+    label: '출간일',
+    key: 'pub_date',
+    filter: (book: IBookDetail) => {
+      return formatDate(book.pub_date);
+    },
   },
   {
-    label: "가격",
-    key: "price",
+    label: '가격',
+    key: 'price',
     filter: (book: IBookDetail) => {
       return `${formatNumber(book.price)}원`;
-    }
+    },
   },
-]
+];
 
 function BookDetail() {
   const { bookId } = useParams();
@@ -58,33 +60,37 @@ function BookDetail() {
   if (!book) return null;
   return (
     <BookDetailStyle>
-      <header className="header">
-        <div className="img" onClick={() => seTisImgOpen(true)}>
+      <header className='header'>
+        <div className='img' onClick={() => seTisImgOpen(true)}>
           <img src={getImgSrc(book.img)} alt={book.title} />
         </div>
-          <Modal isOpen={isImgOpen} onClose={() => seTisImgOpen(false)}>
+        <Modal isOpen={isImgOpen} onClose={() => seTisImgOpen(false)}>
           <img src={getImgSrc(book.img)} alt={book.title} />
-          </Modal>
-        <div className="info">
-          <Title size="large" color="text">
+        </Modal>
+        <div className='info'>
+          <Title size='large' color='text'>
             {book.title}
           </Title>
           {bookInfoList.map((item) => (
             <dl>
               <dt>{item.label}</dt>
-              <dd>{item.filter? item.filter(book): book[item.key as keyof IBookDetail]}</dd>
+              <dd>
+                {item.filter
+                  ? item.filter(book)
+                  : book[item.key as keyof IBookDetail]}
+              </dd>
             </dl>
           ))}
-          <p className="summary">{book.summary}</p>
-          <div className="like">
+          <p className='summary'>{book.summary}</p>
+          <div className='like'>
             <LikeButton book={book} onClick={likeToggle}></LikeButton>
           </div>
-          <div className="add-cart">
-            <AddToCart book={book}/>
+          <div className='add-cart'>
+            <AddToCart book={book} />
           </div>
         </div>
       </header>
-      <div className="content">
+      <div className='content'>
         <Tabs>
           <Tab title='상세 설명'>
             <Title size='medium'>상세 설명</Title>
@@ -92,16 +98,16 @@ function BookDetail() {
           </Tab>
           <Tab title='목차'>
             <Title size='medium'>목차</Title>
-            <p className="index">{book.contents}</p>
+            <p className='index'>{book.contents}</p>
           </Tab>
           <Tab title='리뷰'>
             <Title size='medium'>리뷰</Title>
-            <BookReview reviews={reviews} onAdd={addReview}/>
+            <BookReview reviews={reviews} onAdd={addReview} />
           </Tab>
         </Tabs>
-     </div> 
-      </BookDetailStyle>
-  )
+      </div>
+    </BookDetailStyle>
+  );
 }
 
 const BookDetailStyle = styled.div`
@@ -113,7 +119,7 @@ const BookDetailStyle = styled.div`
 
     .img {
       flex: 1;
-      img{
+      img {
         width: 100%;
         height: auto;
       }
@@ -130,10 +136,10 @@ const BookDetailStyle = styled.div`
         margin: 0;
         dt {
           width: 80px;
-          color: ${({theme}) => theme.color.secondary};
+          color: ${({ theme }) => theme.color.secondary};
         }
         a {
-          color: ${({theme}) => theme.color.primary};
+          color: ${({ theme }) => theme.color.primary};
         }
       }
     }
@@ -148,6 +154,6 @@ const BookDetailStyle = styled.div`
       }
     }
   }
-`
+`;
 
 export default BookDetail;

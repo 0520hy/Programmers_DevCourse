@@ -1,33 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { FaAngleDown } from 'react-icons/fa';
 import styled from 'styled-components';
 import Button from './Button';
-import { FaAngleDown } from 'react-icons/fa';
 
 interface Props {
-    children: React.ReactNode;
-    linelimit: number;
+  children: React.ReactNode;
+  linelimit: number;
 }
 
-function EllipsisBox({children, linelimit} : Props) {
-    const [expanded, setExpanded] = useState(false);
+function EllipsisBox({ children, linelimit }: Props) {
+  const [expanded, setExpanded] = useState(false);
   return (
     <EllipsisBoxStyle linelimit={linelimit} $expanded={expanded}>
       <p>{children}</p>
-      <div className="toggle">
-        <Button 
-            size='small' 
-            scheme="normal" 
-            onClick={()=>setExpanded(!expanded)}>
-               {expanded ? "접기" : "펼치기"} <FaAngleDown/>
-            </Button>
+      <div className='toggle'>
+        <Button
+          size='small'
+          scheme='normal'
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? '접기' : '펼치기'} <FaAngleDown />
+        </Button>
       </div>
     </EllipsisBoxStyle>
-  )
+  );
 }
 
 interface EllipsisBoxStyleProps {
-    linelimit: number;
-    $expanded: boolean;
+  linelimit: number;
+  $expanded: boolean;
 }
 
 const EllipsisBoxStyle = styled.div<EllipsisBoxStyleProps>`
@@ -35,7 +36,8 @@ const EllipsisBoxStyle = styled.div<EllipsisBoxStyleProps>`
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: ${({linelimit, $expanded }) => $expanded? 'none' : linelimit};
+    -webkit-line-clamp: ${({ linelimit, $expanded }) =>
+      $expanded ? 'none' : linelimit};
     -webkit-box-orient: vertical;
     margin: 20px 0 0 0;
     padding: 0;
@@ -45,9 +47,10 @@ const EllipsisBoxStyle = styled.div<EllipsisBoxStyleProps>`
     display: flex;
     justify-content: end;
     svg {
-        transform: ${({ $expanded }) => $expanded? "rotate(180deg)" : "rotate(0)"};;
+      transform: ${({ $expanded }) =>
+        $expanded ? 'rotate(180deg)' : 'rotate(0)'};
     }
   }
-`
+`;
 
 export default EllipsisBox;

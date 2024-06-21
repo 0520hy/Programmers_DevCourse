@@ -1,41 +1,46 @@
-import React from 'react'
-import { Pagination as IPagination } from '../../models/pagination.model'
-import styled from 'styled-components';
-import Button from '../common/Button';
-import { LIMIT } from '../../constants/pagination';
 import { useSearchParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { LIMIT } from '../../constants/pagination';
 import { QUERYSTRING } from '../../constants/querystring';
+import { Pagination as IPagination } from '../../models/pagination.model';
+import Button from '../common/Button';
 
 interface Props {
-  pagination: IPagination
+  pagination: IPagination;
 }
-function Pagination({pagination} : Props) {
-  const [searchParams, setSearchParams] =useSearchParams();
-  const { totalCount, currentPage} = pagination;
-  const pages = Math.ceil(totalCount/LIMIT);
+function Pagination({ pagination }: Props) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { totalCount, currentPage } = pagination;
+  const pages = Math.ceil(totalCount / LIMIT);
 
-  const handleClickPage = (page : number) => {
+  const handleClickPage = (page: number) => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set(QUERYSTRING.PAGE, page.toString());
     setSearchParams(newSearchParams);
-  }
+  };
 
   return (
     <PaginationStyle>
       {pages > 0 && (
         <ol>
-          {Array(pages).fill(0).map((_,index) => (
-            <li>
-              <Button key={index} size="small" scheme="normal"
-              onClick={() => handleClickPage(index+1)}>
-                {index + 1}
-              </Button>
-            </li>
-          ))}
+          {Array(pages)
+            .fill(0)
+            .map((_, index) => (
+              <li>
+                <Button
+                  key={index}
+                  size='small'
+                  scheme='normal'
+                  onClick={() => handleClickPage(index + 1)}
+                >
+                  {index + 1}
+                </Button>
+              </li>
+            ))}
         </ol>
-      )} 
+      )}
     </PaginationStyle>
-  )
+  );
 }
 
 const PaginationStyle = styled.div`
@@ -51,6 +56,6 @@ const PaginationStyle = styled.div`
     padding: 0;
     margin: 0;
   }
-`
+`;
 
 export default Pagination;
