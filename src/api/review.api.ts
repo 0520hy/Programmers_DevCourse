@@ -11,3 +11,7 @@ export const addBookReview = async (
 ) => {
   return await requestHandler('post', `/reviews/${bookId}`);
 };
+
+export const fetchReviewAll = async () => {
+  return await requestHandler<BookReviewItem[]>('get', '/reviews');
+};
